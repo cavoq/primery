@@ -1,18 +1,21 @@
 #include <iostream>
 #include <vector>
 #include "include/primegenerator.h"
+#include "include/timer.h"
 
-void output(std::vector<unsigned int> &primes)
+void output(Result &result)
 {
-    for (int i = 0; i < primes.size(); ++i)
+    for (int i = 0; i < result.primes.size(); ++i)
     {
-        std::cout << i << " prime :" << primes[i] << "\n";
+        std::cout << i << " prime :" << result.primes[i] << "\n";
     }
+    std::cout << "time: " << result.time << "\n";
 }
 
 int main(int argc, char *argv[])
 {
+    Timer timer;
     PrimeGenerator primeGenerator = PrimeGenerator();
-    std::vector<unsigned int> primes = primeGenerator.sieveOfEratosthenes(2, 100000);
-    output(primes);
+    Result result = timer.time([](){ sieveOfEratosthenes(2, 10); });
+    output(result);
 }
