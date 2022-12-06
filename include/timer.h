@@ -18,7 +18,7 @@ class Timer
 public:
     Timer();
     template <typename Function>
-    Result time(Function f);
+    Result time(Function function);
 
 private:
     std::chrono::steady_clock::time_point startTime;

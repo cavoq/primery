@@ -5,17 +5,14 @@
 
 void output(Result &result)
 {
-    for (int i = 0; i < result.primes.size(); ++i)
-    {
-        std::cout << i << " prime :" << result.primes[i] << "\n";
-    }
+    std::cout << "number of primes: " << result.primes.size() << "\n";
     std::cout << "time: " << result.time << "\n";
 }
 
 int main(int argc, char *argv[])
 {
-    Timer timer;
+    Timer timer = Timer();
     PrimeGenerator primeGenerator = PrimeGenerator();
-    Result result = timer.time([](){ sieveOfEratosthenes(2, 10); });
+    Result result = timer.time([&primeGenerator](){ primeGenerator.sieveOfEratosthenes(2, 1000); });
     output(result);
 }
