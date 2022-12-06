@@ -11,8 +11,9 @@ std::vector<unsigned int> PrimeGenerator::trailDivision(unsigned int start, unsi
     for (unsigned int n = start; n <= end; ++n)
     {
         bool isPrime = true;
+        unsigned int k = ceil(sqrt(n));
 
-        for (unsigned int j = 2; j < n; ++j)
+        for (unsigned int j = 2; j <= k; ++j)
         {
             if (n % j == 0)
             {
