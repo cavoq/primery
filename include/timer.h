@@ -17,8 +17,7 @@ class Timer
 
 public:
     Timer();
-    template <typename Function>
-    Result time(Function function);
+    Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end);
 
 private:
     std::chrono::steady_clock::time_point startTime;

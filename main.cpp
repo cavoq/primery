@@ -13,6 +13,6 @@ int main(int argc, char *argv[])
 {
     Timer timer = Timer();
     PrimeGenerator primeGenerator = PrimeGenerator();
-    Result result = timer.time([&primeGenerator](){ primeGenerator.sieveOfEratosthenes(2, 1000); });
+    Result result = timer.time(primeGenerator.trailDivision, 2, 10000000);
     output(result);
 }

@@ -1,14 +1,13 @@
 #include "../include/timer.h"
-#include <vector>
 
 Timer::Timer() : startTime(std::chrono::steady_clock::now()) {}
 
-template <typename Function>
-Result Timer::time(Function function)
+Result Timer::time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end)
 {
     std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
-    std::vector<unsigned int> primes = function();
+    std::vector<unsigned int> primes = (*function)(start, end);
     std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
-    double time = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+    double time = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count();
+    time = time / 1000000;
     return Result(primes, time);
 }

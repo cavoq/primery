@@ -1,4 +1,3 @@
-#include <vector>
 #include <bits/stdc++.h>
 #include "../include/primegenerator.h"
 
