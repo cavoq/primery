@@ -13,6 +13,6 @@ void output(std::vector<unsigned int> &primes)
 int main(int argc, char *argv[])
 {
     PrimeGenerator primeGenerator = PrimeGenerator();
-    std::vector<unsigned int> primes = primeGenerator.sieveOfEratosthenes(2, 10000000);
+    std::vector<unsigned int> primes = primeGenerator.sieveOfEratosthenes(2, 100000);
     output(primes);
 }
