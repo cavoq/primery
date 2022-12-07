@@ -4,11 +4,15 @@ ArgumentParser::ArgumentParser(int argc, char *argv[]) : argc(argc), argv(argv) 
 
 void ArgumentParser::parseArguments()
 {
-    if (isHelpArgumentPresent())
+    if (isHelpArgumentPresent() || argc < 2)
+    {
         printHelp();
         return;
-    
+    }
+    setAlgorithm();
     setIntervalArgument();
+    setOutputArgument();
+    setTimeArgument();
 }
 
 bool ArgumentParser::isArgumentPresent(const char **flags)
@@ -36,7 +40,7 @@ void ArgumentParser::setArgument(const char **flags, const char *argument)
 
     if (strlen(presentArgument) == 0)
         return;
-    
+
     argument = presentArgument;
 }
 
@@ -52,7 +56,7 @@ const char *ArgumentParser::getPresentFlag(const char **flags)
             }
         }
     }
-    return NULL;
+    return "";
 }
 
 const char *ArgumentParser::getArgument(const char *flag)
@@ -64,7 +68,7 @@ const char *ArgumentParser::getArgument(const char *flag)
             return argv[i + 1];
         }
     }
-    return NULL;
+    return "";
 }
 
 std::pair<unsigned int, unsigned int> ArgumentParser::extractIntervalValues(const std::string &argument)
@@ -104,15 +108,27 @@ const char *ArgumentParser::getOutputArgument()
 }
 
 void ArgumentParser::setIntervalArgument()
-{   
-    const char *intervalStr;
+{
+    const char *intervalStr = "";
     setArgument(intervalFlags, intervalStr);
+    if (intervalStr == "")
+        return;
     interval = extractIntervalValues(intervalStr);
 }
 
 std::pair<unsigned int, unsigned int> ArgumentParser::getIntervalArgument()
 {
     return interval;
+}
+
+void ArgumentParser::setAlgorithm()
+{
+    algorithm = argv[argc - 1];
+}
+
+const char *ArgumentParser::getAlgorithm()
+{
+    return algorithm;
 }
 
 void ArgumentParser::printHelp()
@@ -138,4 +154,9 @@ void ArgumentParser::debug()
     {
         std::cout << i << ": " << argv[i] << std::endl;
     }
+    std::cout << "Set arguuments: " << "\n";
+    std::cout << algorithm << "\n";
+    std::cout << time << "\n";
+    std::cout << interval.first << interval.second << "\n";
+    std::cout << outputFile << "\n";
 }

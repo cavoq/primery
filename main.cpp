@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     Timer timer = Timer();
     ArgumentParser argumentParser = ArgumentParser(argc, argv);
     //argumentParser.printHelp();
-    argumentParser.debug();
     argumentParser.parseArguments();
+    argumentParser.debug();
     //PrimeGenerator primeGenerator = PrimeGenerator();
     //Result result = timer.time(primeGenerator.trailDivision, 2, 10000000);
     //output(result);

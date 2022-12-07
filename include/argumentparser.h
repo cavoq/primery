@@ -15,6 +15,7 @@ public:
 
     const char *getOutputArgument();
     const char *getTimeArgument();
+    const char *getAlgorithm();
     std::pair<unsigned int, unsigned int> getIntervalArgument();
 
 private:
@@ -22,6 +23,7 @@ private:
     void setOutputArgument();
     void setTimeArgument();
     void setIntervalArgument();
+    void setAlgorithm();
     std::pair<unsigned int, unsigned int> extractIntervalValues(const std::string &argument);
 
     bool isArgumentPresent(const char **flags);
@@ -40,7 +42,7 @@ private:
 
     std::pair<unsigned int, unsigned int> interval = {0, 1000};
     const char *time = "ms";
-    const char *algorithm;
+    const char *algorithm = "";
     const char *outputFile = "primes.txt";
 };
 
