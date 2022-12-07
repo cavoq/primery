@@ -4,9 +4,11 @@ It also measures the time each algorithm needs to generate the prime numbers.
 
 ## **Supported algorithms**
 
-| Algorithm | Trial Division | Sieve of Eratosthenes |
-| :---:   | :---: | :---: |
-| Complexity | O(n^2)  | O(n*sqrt(n)) |
+| Algorithm | Complexity |
+| :---:   | :---: |
+| Trial Division | O(n^2) |
+| Sieve of Eratosthenes | O(n*sqrt(n)) |
+
 
 ## **Makefile**
 
