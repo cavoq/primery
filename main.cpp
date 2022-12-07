@@ -6,7 +6,7 @@
 #include "include/argumentparser.h"
 
 void output(Result &result, Config &config)
-{   
+{
     config.printConfig();
     result.printResult();
 }
@@ -23,13 +23,15 @@ void run(Config &config)
     if (algorithm == "sieveOfEratosthenes")
         result = timer.time(primeGenerator.sieveOfEratosthenes, config);
 
+    result.writeToFile(config.getOutputFile());
     output(result, config);
 }
 
 int main(int argc, char *argv[])
-{   
+{
     Config config = Config();
     ArgumentParser argumentParser = ArgumentParser();
-    argumentParser.parseArguments(argc, argv, config);
+    if (!argumentParser.parse(argc, argv, config))
+        return 0;
     run(config);
 }

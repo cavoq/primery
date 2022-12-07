@@ -11,6 +11,7 @@ public:
     Result(std::vector<unsigned int> primes, double time);
     Result();
     void printResult();
+    void writeToFile(std::string &fileName);
     
     void setResult(std::vector<unsigned int> &primes, double time);
     double getTime();

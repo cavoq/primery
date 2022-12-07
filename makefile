@@ -1,5 +1,8 @@
-run:
-	@g++ -o main -O3 $(wildcard main.cpp src/*.cpp) && ./main
+build:
+	@g++ -o prime-generator -O3 $(wildcard main.cpp src/*.cpp)
 
+install:
+	build
+	
 clean:
-	@rm -f main
+	@rm -f prime-generator

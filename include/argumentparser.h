@@ -10,7 +10,7 @@ class ArgumentParser
 
 public:
     ArgumentParser();
-    void parseArguments(int argc, char *argv[], Config &config);
+    bool parse(int argc, char *argv[], Config &config);
     void printHelp();
 
 private:

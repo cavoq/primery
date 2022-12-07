@@ -2,7 +2,7 @@
 
 ArgumentParser::ArgumentParser() {}
 
-void ArgumentParser::parseArguments(int argc, char *argv[], Config &config)
+bool ArgumentParser::parse(int argc, char *argv[], Config &config)
 {
     this->argc = argc;
     this->argv = argv;
@@ -10,9 +10,9 @@ void ArgumentParser::parseArguments(int argc, char *argv[], Config &config)
     if (isHelpArgumentPresent() || argc < 2 || !setConfig(config))
     {
         printHelp();
-        return;
+        return false;
     }
-    setConfig(config);
+    return true;
 }
 
 bool ArgumentParser::setConfig(Config &config)
@@ -67,7 +67,7 @@ const char *ArgumentParser::getArgument(const char **flags)
 
     if (strlen(argument) == 0)
         return "";
-        
+
     return argument;
 }
 

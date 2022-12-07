@@ -1,5 +1,5 @@
 #include "../include/result.h"
-#include <cstring>
+#include <fstream>
 
 Result::Result() {}
 
@@ -13,6 +13,16 @@ void Result::printResult()
 }
 
 Result::Result(std::vector<unsigned int> primes, double time) : primes(primes), time(time) {}
+
+void Result::writeToFile(std::string &fileName)
+{
+    std::ofstream outputFile(fileName);
+    for (int i = 0; i < primes.size(); ++i)
+    {
+        outputFile << primes[i] << "\n";
+    }
+    outputFile.close();
+}
 
 void Result::setResult(std::vector<unsigned int> &primes, double time)
 {
