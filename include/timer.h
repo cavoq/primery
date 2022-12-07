@@ -9,6 +9,7 @@ struct Result
     std::vector<unsigned int> primes;
     double time;
 
+    Result() {}
     Result(std::vector<unsigned int> primes, double time) : primes(primes), time(time) {}
 };
 

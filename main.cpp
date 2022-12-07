@@ -5,22 +5,36 @@
 #include "include/timer.h"
 #include "include/argumentparser.h"
 
-#define DEFAULT_TIME "ns"
-
 void output(Result &result)
 {
     std::cout << "number of primes: " << result.primes.size() << "\n";
     std::cout << "time: " << result.time << "\n";
 }
 
+void run(const char *algotithm, const char* timeFormat, std::pair<unsigned int, unsigned int> &interval, const char *outputFile)
+{   
+    PrimeGenerator primeGenerator = PrimeGenerator();
+    Timer timer = Timer();
+    Result result = Result();
+
+    if (algotithm == "")
+        return;
+    if (algotithm == "trialDivision" || algotithm == "td")
+        result = timer.time(primeGenerator.trailDivision, interval.first, interval.second, timeFormat);
+    if (algotithm == "sieveOfEratosthenes" || algotithm == "soe")
+        result = timer.time(primeGenerator.sieveOfEratosthenes, interval.first, interval.second, timeFormat);
+    output(result);
+}
+
 int main(int argc, char *argv[])
 {
-    Timer timer = Timer();
     ArgumentParser argumentParser = ArgumentParser(argc, argv);
-    //argumentParser.printHelp();
     argumentParser.parseArguments();
-    argumentParser.debug();
-    //PrimeGenerator primeGenerator = PrimeGenerator();
-    //Result result = timer.time(primeGenerator.trailDivision, 2, 10000000);
-    //output(result);
+    
+    const char *algotithm = argumentParser.getAlgorithm();
+    const char *timeFormat = argumentParser.getTimeFormatArgument();
+    std::pair<unsigned int, unsigned int> interval = argumentParser.getIntervalArgument();
+    const char *outputFile = argumentParser.getOutputArgument();
+
+    run(algotithm, timeFormat, interval, outputFile);
 }

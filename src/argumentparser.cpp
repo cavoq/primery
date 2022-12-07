@@ -12,7 +12,7 @@ void ArgumentParser::parseArguments()
     setAlgorithm();
     setIntervalArgument();
     setOutputArgument();
-    setTimeArgument();
+    setTimeFormatArgument();
 }
 
 bool ArgumentParser::isArgumentPresent(const char **flags)
@@ -87,14 +87,14 @@ bool ArgumentParser::isHelpArgumentPresent()
     return isArgumentPresent(helpFlags);
 }
 
-void ArgumentParser::setTimeArgument()
+void ArgumentParser::setTimeFormatArgument()
 {
-    setArgument(timeFlags, time);
+    setArgument(timeFormatFlags, timeFormat);
 }
 
-const char *ArgumentParser::getTimeArgument()
+const char *ArgumentParser::getTimeFormatArgument()
 {
-    return time;
+    return timeFormat;
 }
 
 void ArgumentParser::setOutputArgument()
@@ -156,7 +156,7 @@ void ArgumentParser::debug()
     }
     std::cout << "Set arguuments: " << "\n";
     std::cout << algorithm << "\n";
-    std::cout << time << "\n";
+    std::cout << timeFormat << "\n";
     std::cout << interval.first << interval.second << "\n";
     std::cout << outputFile << "\n";
 }

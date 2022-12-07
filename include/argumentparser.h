@@ -14,14 +14,14 @@ public:
     void printHelp();
 
     const char *getOutputArgument();
-    const char *getTimeArgument();
+    const char *getTimeFormatArgument();
     const char *getAlgorithm();
     std::pair<unsigned int, unsigned int> getIntervalArgument();
 
 private:
     bool isHelpArgumentPresent();
     void setOutputArgument();
-    void setTimeArgument();
+    void setTimeFormatArgument();
     void setIntervalArgument();
     void setAlgorithm();
     std::pair<unsigned int, unsigned int> extractIntervalValues(const std::string &argument);
@@ -38,10 +38,10 @@ private:
     const char *intervalFlags[3] = {"-i", "--interval", ""};
     const char *outputFlags[3] = {"-o", "--output", ""};
     const char *helpFlags[3] = {"-h", "--help", ""};
-    const char *timeFlags[3] = {"-t", "--time", ""};
+    const char *timeFormatFlags[3] = {"-t", "--time", ""};
 
     std::pair<unsigned int, unsigned int> interval = {0, 1000};
-    const char *time = "ms";
+    const char *timeFormat = "ms";
     const char *algorithm = "";
     const char *outputFile = "primes.txt";
 };
