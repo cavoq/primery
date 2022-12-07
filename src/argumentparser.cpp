@@ -17,7 +17,22 @@ bool ArgumentParser::isArgumentPresent(const char **flags)
     return false;
 }
 
-char *ArgumentParser::getArgument(char *flag)
+const char *ArgumentParser::getPresentFlag(const char **flags)
+{
+    for (int i = 0; i < argc; i++)
+    {
+        for (int j = 0; flags[j] != ""; j++)
+        {
+            if (std::string(argv[i]) == flags[j])
+            {
+                return flags[j];
+            }
+        }
+    }
+    return NULL;
+}
+
+char *ArgumentParser::getArgument(const char *flag)
 {
     for (int i = 0; i < argc; i++)
     {
@@ -27,6 +42,17 @@ char *ArgumentParser::getArgument(char *flag)
         }
     }
     return NULL;
+}
+
+std::pair<unsigned int, unsigned int> ArgumentParser::extractIntervalValues(const std::string &argument)
+{
+    size_t startPos = argument.find_first_of('[') + 1;
+    size_t endPos = argument.find_first_of(']');
+    std::string startStr = argument.substr(startPos, endPos - startPos);
+    std::string endStr = argument.substr(endPos + 1);
+    unsigned int start = std::stoul(startStr);
+    unsigned int end = std::stoul(endStr);
+    return {start, end};
 }
 
 bool ArgumentParser::isHelpArgumentPresent()
@@ -41,9 +67,27 @@ bool ArgumentParser::isOutputArgumentPresent()
     return isArgumentPresent(flags);
 }
 
+bool ArgumentParser::isIntervalArgumentPresent()
+{
+    const char *flags[] = {"-i", "--interval", ""};
+    return isArgumentPresent(flags);
+}
+
+std::pair<unsigned int, unsigned int> ArgumentParser::getIntervalArgument()
+{
+    std::string argument = getArgument(intervalFlag);
+    if (argument.size() == 0)
+    {
+        return {0, 0};
+    }
+    return extractIntervalValues(argument);
+}
+
 void ArgumentParser::printHelp()
 {
-    std::cout << "Usage: prime-generator [Options] {algorithm}" << "\n" << std::endl;
+    std::cout << "Usage: prime-generator [Options] {algorithm}"
+              << "\n"
+              << std::endl;
     std::cout << "SUPPORTED ALGORITHMS:" << std::endl;
     std::cout << "    { trialDivision, td }" << std::endl;
     std::cout << "    { sieveOfEratosthenes, soe}" << std::endl;
@@ -51,5 +95,15 @@ void ArgumentParser::printHelp()
     std::cout << "    -h, --help: Get help for the program" << std::endl;
     std::cout << "    -o, --output: Specify an output file for the generated prime numbers" << std::endl;
     std::cout << "    -t, --time: Specify time format [ns, ms, s]" << std::endl;
-    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start, end]" << std::endl;
+    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end]" << std::endl;
+}
+
+void ArgumentParser::debug()
+{
+    std::cout << "Argument Count: " << argc << std::endl;
+    std::cout << "Arguments: " << std::endl;
+    for (int i = 0; i < argc; i++)
+    {
+        std::cout << i << ": " << argv[i] << std::endl;
+    }
 }

@@ -20,6 +20,9 @@ public:
     Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end);
 
 private:
+    double getTime(double time, const char *format);
+    
+private:
     std::chrono::steady_clock::time_point startTime;
 };
 
