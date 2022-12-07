@@ -1,5 +1,5 @@
 run:
-	g++ -o main -O3 $(wildcard main.cpp src/*.cpp) && ./main
+	@g++ -o main -O3 $(wildcard main.cpp src/*.cpp) && ./main
 
 clean:
-	rm -f main
+	@rm -f main

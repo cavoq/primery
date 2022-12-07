@@ -1,24 +1,20 @@
 #ifndef ARGUMENTPARSER_H
 #define ARGUMENTPARSER_H
 
+#include <iostream>
+#include <cstring>
+
 class ArgumentParser
 {
 
 public:
     ArgumentParser(int argc, char* argv[]);
+    void printHelp();
     bool isHelpArgumentPresent();
     bool isOutputArgumentPresent();
-    bool isAlgorithmArgumentPresent();
-    bool isTimeArgumentPresent();
-    bool isIntervalArgumentPresent();
-    const char *getOutputArgument();
-    const char *getAlgorithmArgument();
-    const char *getTimeArgument();
-    bool isIntervalArgumentPresent();
-    std::pair<unsigned int, unsigned int> getIntervalArgument();
 
 private:
-    bool isArgumentPresent(char **flags);
+    bool isArgumentPresent(const char **flags);
     char *getArgument(char *flag);
 
 private:
