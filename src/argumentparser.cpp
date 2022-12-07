@@ -117,7 +117,7 @@ bool ArgumentParser::isHelpArgumentPresent()
 
 void ArgumentParser::printHelp()
 {
-    std::cout << "Usage: prime-generator [Options] {algorithm}"
+    std::cout << "Usage: ./prime-generator [Options] {algorithm}"
               << "\n"
               << std::endl;
     std::cout << "SUPPORTED ALGORITHMS:" << std::endl;

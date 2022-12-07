@@ -1,6 +1,14 @@
 # Prime Generator
-Comparison of different algorithms for generating prime numbers in a given range from [x, y].
+Prime generator is used to generate prime numbers in a specified range [x, y].
+It also measures the time each algorithm needs to generate the prime numbers.
 
-## Supported Algorithms
+## **Supported algorithms**
 
-### *Trial Division Algorithm*
+| Algorithm | Trial Division | Sieve of Eratosthenes |
+| :---:   | :---: | :---: |
+| Complexity | O(n^2)  | O(n*sqrt(n)) |
+
+## **Makefile**
+
+## **Usage**
+
