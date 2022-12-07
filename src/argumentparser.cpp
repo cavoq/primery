@@ -17,3 +17,14 @@ bool ArgumentParser::isArgumentPresent(char **flags)
     return false;
 }
 
+char *ArgumentParser::getArgument(char *flag)
+{
+    for (int i = 0; i < argc; i++)
+    {
+        if (strcmp(argv[i], flag) == 0 && i + 1 < argc)
+        {
+            return argv[i + 1];
+        }
+    }
+    return NULL;
+}

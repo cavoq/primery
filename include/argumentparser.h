@@ -19,6 +19,7 @@ public:
 
 private:
     bool isArgumentPresent(char **flags);
+    char *getArgument(char *flag);
 
 private:
     int argc;
