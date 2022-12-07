@@ -2,21 +2,21 @@
 
 Timer::Timer() : startTime(std::chrono::steady_clock::now()) {}
 
-Result Timer::time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end, std::string &format)
+Result Timer::time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), Config &config)
 {
     std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
-    std::vector<unsigned int> primes = (*function)(start, end);
+    std::vector<unsigned int> primes = (*function)(config.getInterval().first, config.getInterval().second);
     std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
     double time = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count();
-    time = getTime(time, format);
+    time = getTime(time, config.getTimeFormat());
     return Result(primes, time);
 }
 
 double Timer::getTime(double timeInNs, std::string &format)
 {
-    if (format == "ns")
+    if (format == "nanoseconds")
         return timeInNs;
-    if (format == "s")
+    if (format == "seconds")
         return timeInNs / 1000000000;
     return timeInNs / 1000000;
 }

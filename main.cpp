@@ -5,34 +5,31 @@
 #include "include/timer.h"
 #include "include/argumentparser.h"
 
-void output(Result &result)
-{
-    std::cout << "number of primes: " << result.primes.size() << "\n";
-    std::cout << "time: " << result.time << "\n";
+void output(Result &result, Config &config)
+{   
+    config.printConfig();
+    result.printResult();
 }
 
-void run(std::string algorithm, std::string timeFormat, std::pair<unsigned int, unsigned int> interval, std::string outputFile)
+void run(Config &config)
 {
     PrimeGenerator primeGenerator = PrimeGenerator();
     Timer timer = Timer();
     Result result = Result();
+    std::string algorithm = config.getAlgorithm();
 
-    if (algorithm == "")
-        return;
-    if (algorithm == "trialDivision" || algorithm == "td")
-        result = timer.time(primeGenerator.trailDivision, interval.first, interval.second, timeFormat);
-    if (algorithm == "sieveOfEratosthenes" || algorithm == "soe")
-        result = timer.time(primeGenerator.sieveOfEratosthenes, interval.first, interval.second, timeFormat);
+    if (algorithm == "trialDivision")
+        result = timer.time(primeGenerator.trailDivision, config);
+    if (algorithm == "sieveOfEratosthenes")
+        result = timer.time(primeGenerator.sieveOfEratosthenes, config);
 
-    output(result);
+    output(result, config);
 }
 
 int main(int argc, char *argv[])
-{
-    ArgumentParser argumentParser = ArgumentParser(argc, argv);
-    argumentParser.parseArguments();
-    //argumentParser.debug();
-
-    run(argumentParser.getAlgorithm(), argumentParser.getTimeFormatArgument(),
-        argumentParser.getIntervalArgument(), argumentParser.getOutputArgument());
+{   
+    Config config = Config();
+    ArgumentParser argumentParser = ArgumentParser();
+    argumentParser.parseArguments(argc, argv, config);
+    run(config);
 }

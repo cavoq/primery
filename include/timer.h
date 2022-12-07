@@ -4,22 +4,15 @@
 #include <chrono>
 #include <vector>
 #include <iostream>
-
-struct Result
-{
-    std::vector<unsigned int> primes;
-    double time;
-
-    Result() {}
-    Result(std::vector<unsigned int> primes, double time) : primes(primes), time(time) {}
-};
+#include "config.h"
+#include "result.h"
 
 class Timer
 {
 
 public:
     Timer();
-    Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end, std::string &format);
+    Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), Config &config);
 
 private:
     double getTime(double time, std::string &format);
