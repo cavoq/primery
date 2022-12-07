@@ -145,18 +145,3 @@ void ArgumentParser::printHelp()
     std::cout << "    -t, --time: Specify time format [ns, ms, s]" << std::endl;
     std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end]" << std::endl;
 }
-
-void ArgumentParser::debug()
-{
-    std::cout << "Argument Count: " << argc << std::endl;
-    std::cout << "Arguments: " << std::endl;
-    for (int i = 0; i < argc; i++)
-    {
-        std::cout << i << ": " << argv[i] << std::endl;
-    }
-    std::cout << "Set arguuments: " << "\n";
-    std::cout << algorithm << "\n";
-    std::cout << timeFormat << "\n";
-    std::cout << interval.first << interval.second << "\n";
-    std::cout << outputFile << "\n";
-}
