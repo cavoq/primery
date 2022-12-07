@@ -11,18 +11,19 @@ void output(Result &result)
     std::cout << "time: " << result.time << "\n";
 }
 
-void run(const char *algotithm, const char* timeFormat, std::pair<unsigned int, unsigned int> &interval, const char *outputFile)
-{   
+void run(std::string algorithm, std::string timeFormat, std::pair<unsigned int, unsigned int> interval, std::string outputFile)
+{
     PrimeGenerator primeGenerator = PrimeGenerator();
     Timer timer = Timer();
     Result result = Result();
 
-    if (algotithm == "")
+    if (algorithm == "")
         return;
-    if (algotithm == "trialDivision" || algotithm == "td")
+    if (algorithm == "trialDivision" || algorithm == "td")
         result = timer.time(primeGenerator.trailDivision, interval.first, interval.second, timeFormat);
-    if (algotithm == "sieveOfEratosthenes" || algotithm == "soe")
+    if (algorithm == "sieveOfEratosthenes" || algorithm == "soe")
         result = timer.time(primeGenerator.sieveOfEratosthenes, interval.first, interval.second, timeFormat);
+
     output(result);
 }
 
@@ -30,11 +31,8 @@ int main(int argc, char *argv[])
 {
     ArgumentParser argumentParser = ArgumentParser(argc, argv);
     argumentParser.parseArguments();
-    
-    const char *algotithm = argumentParser.getAlgorithm();
-    const char *timeFormat = argumentParser.getTimeFormatArgument();
-    std::pair<unsigned int, unsigned int> interval = argumentParser.getIntervalArgument();
-    const char *outputFile = argumentParser.getOutputArgument();
+    //argumentParser.debug();
 
-    run(algotithm, timeFormat, interval, outputFile);
+    run(argumentParser.getAlgorithm(), argumentParser.getTimeFormatArgument(),
+        argumentParser.getIntervalArgument(), argumentParser.getOutputArgument());
 }

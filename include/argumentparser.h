@@ -13,9 +13,9 @@ public:
     void debug();
     void printHelp();
 
-    const char *getOutputArgument();
-    const char *getTimeFormatArgument();
-    const char *getAlgorithm();
+    std::string getOutputArgument();
+    std::string getTimeFormatArgument();
+    std::string getAlgorithm();
     std::pair<unsigned int, unsigned int> getIntervalArgument();
 
 private:
@@ -24,12 +24,12 @@ private:
     void setTimeFormatArgument();
     void setIntervalArgument();
     void setAlgorithm();
-    std::pair<unsigned int, unsigned int> extractIntervalValues(const std::string &argument);
+    std::pair<unsigned int, unsigned int> extractIntervalValues();
 
     bool isArgumentPresent(const char **flags);
     const char *getArgument(const char *flag);
     const char *getPresentFlag(const char **flags);
-    void setArgument(const char **flags, const char *argument);
+    void setArgument(const char **flags, std::string &argument);
 
 private:
     int argc;
@@ -40,10 +40,10 @@ private:
     const char *helpFlags[3] = {"-h", "--help", ""};
     const char *timeFormatFlags[3] = {"-t", "--time", ""};
 
-    std::pair<unsigned int, unsigned int> interval = {0, 1000};
-    const char *timeFormat = "ms";
-    const char *algorithm = "";
-    const char *outputFile = "primes.txt";
+    std::string interval = "[0,1000]";
+    std::string timeFormat = "ms";
+    std::string algorithm = "";
+    std::string outputFile = "primes.txt";
 };
 
 #endif // ARGUMENTPARSER_H

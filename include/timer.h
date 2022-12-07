@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <vector>
+#include <iostream>
 
 struct Result
 {
@@ -18,10 +19,10 @@ class Timer
 
 public:
     Timer();
-    Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end, const char *format);
+    Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), unsigned int start, unsigned int end, std::string &format);
 
 private:
-    double getTime(double time, const char *format);
+    double getTime(double time, std::string &format);
 
 private:
     std::chrono::steady_clock::time_point startTime;

@@ -9,10 +9,10 @@ void ArgumentParser::parseArguments()
         printHelp();
         return;
     }
-    setAlgorithm();
     setIntervalArgument();
     setOutputArgument();
     setTimeFormatArgument();
+    setAlgorithm();
 }
 
 bool ArgumentParser::isArgumentPresent(const char **flags)
@@ -30,7 +30,7 @@ bool ArgumentParser::isArgumentPresent(const char **flags)
     return false;
 }
 
-void ArgumentParser::setArgument(const char **flags, const char *argument)
+void ArgumentParser::setArgument(const char **flags, std::string &argument)
 {
     if (!isArgumentPresent(flags))
         return;
@@ -71,12 +71,13 @@ const char *ArgumentParser::getArgument(const char *flag)
     return "";
 }
 
-std::pair<unsigned int, unsigned int> ArgumentParser::extractIntervalValues(const std::string &argument)
-{
-    size_t startPos = argument.find_first_of('[') + 1;
-    size_t endPos = argument.find_first_of(']');
-    std::string startStr = argument.substr(startPos, endPos - startPos);
-    std::string endStr = argument.substr(endPos + 1);
+std::pair<unsigned int, unsigned int> ArgumentParser::extractIntervalValues()
+{   
+    size_t startPos = interval.find_first_of('[') + 1;
+    size_t endPos = interval.find_first_of(']');
+    size_t seperatorPos = interval.find_first_of(',');
+    std::string startStr = interval.substr(startPos, seperatorPos - startPos);
+    std::string endStr = interval.substr(seperatorPos + 1, endPos -1 - seperatorPos);
     unsigned int start = std::stoul(startStr);
     unsigned int end = std::stoul(endStr);
     return {start, end};
@@ -92,7 +93,7 @@ void ArgumentParser::setTimeFormatArgument()
     setArgument(timeFormatFlags, timeFormat);
 }
 
-const char *ArgumentParser::getTimeFormatArgument()
+std::string ArgumentParser::getTimeFormatArgument()
 {
     return timeFormat;
 }
@@ -102,23 +103,19 @@ void ArgumentParser::setOutputArgument()
     setArgument(outputFlags, outputFile);
 }
 
-const char *ArgumentParser::getOutputArgument()
+std::string ArgumentParser::getOutputArgument()
 {
     return outputFile;
 }
 
 void ArgumentParser::setIntervalArgument()
 {
-    const char *intervalStr = "";
-    setArgument(intervalFlags, intervalStr);
-    if (intervalStr == "")
-        return;
-    interval = extractIntervalValues(intervalStr);
+    setArgument(intervalFlags, interval);
 }
 
 std::pair<unsigned int, unsigned int> ArgumentParser::getIntervalArgument()
 {
-    return interval;
+    return extractIntervalValues();
 }
 
 void ArgumentParser::setAlgorithm()
@@ -126,7 +123,7 @@ void ArgumentParser::setAlgorithm()
     algorithm = argv[argc - 1];
 }
 
-const char *ArgumentParser::getAlgorithm()
+std::string ArgumentParser::getAlgorithm()
 {
     return algorithm;
 }
@@ -144,4 +141,11 @@ void ArgumentParser::printHelp()
     std::cout << "    -o, --output: Specify an output file for the generated prime numbers" << std::endl;
     std::cout << "    -t, --time: Specify time format [ns, ms, s]" << std::endl;
     std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end]" << std::endl;
+}
+
+void ArgumentParser::debug()
+{
+    std::cout << algorithm << "\n";
+    std::cout << timeFormat << "\n";
+    std::cout << outputFile << std::endl;
 }
