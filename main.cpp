@@ -5,7 +5,6 @@
 #include "include/timer.h"
 #include "include/argumentparser.h"
 
-#define DEFAULT_INTERVAL "[0, 1000]"
 #define DEFAULT_TIME "ns"
 
 void output(Result &result)
@@ -18,9 +17,9 @@ int main(int argc, char *argv[])
 {
     Timer timer = Timer();
     ArgumentParser argumentParser = ArgumentParser(argc, argv);
-    argumentParser.printHelp();
+    //argumentParser.printHelp();
     argumentParser.debug();
-    argumentParser.getIntervalArgument();
+    argumentParser.parseArguments();
     //PrimeGenerator primeGenerator = PrimeGenerator();
     //Result result = timer.time(primeGenerator.trailDivision, 2, 10000000);
     //output(result);

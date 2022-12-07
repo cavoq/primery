@@ -2,6 +2,15 @@
 
 ArgumentParser::ArgumentParser(int argc, char *argv[]) : argc(argc), argv(argv) {}
 
+void ArgumentParser::parseArguments()
+{
+    if (isHelpArgumentPresent())
+        printHelp();
+        return;
+    
+    setIntervalArgument();
+}
+
 bool ArgumentParser::isArgumentPresent(const char **flags)
 {
     for (int i = 0; i < argc; i++)
@@ -15,6 +24,20 @@ bool ArgumentParser::isArgumentPresent(const char **flags)
         }
     }
     return false;
+}
+
+void ArgumentParser::setArgument(const char **flags, const char *argument)
+{
+    if (!isArgumentPresent(flags))
+        return;
+
+    const char *presentFlag = getPresentFlag(flags);
+    const char *presentArgument = getArgument(presentFlag);
+
+    if (strlen(presentArgument) == 0)
+        return;
+    
+    argument = presentArgument;
 }
 
 const char *ArgumentParser::getPresentFlag(const char **flags)
@@ -32,7 +55,7 @@ const char *ArgumentParser::getPresentFlag(const char **flags)
     return NULL;
 }
 
-char *ArgumentParser::getArgument(const char *flag)
+const char *ArgumentParser::getArgument(const char *flag)
 {
     for (int i = 0; i < argc; i++)
     {
@@ -57,30 +80,39 @@ std::pair<unsigned int, unsigned int> ArgumentParser::extractIntervalValues(cons
 
 bool ArgumentParser::isHelpArgumentPresent()
 {
-    const char *flags[] = {"-h", "--help", ""};
-    return isArgumentPresent(flags);
+    return isArgumentPresent(helpFlags);
 }
 
-bool ArgumentParser::isOutputArgumentPresent()
+void ArgumentParser::setTimeArgument()
 {
-    const char *flags[] = {"-o", "--output", ""};
-    return isArgumentPresent(flags);
+    setArgument(timeFlags, time);
 }
 
-bool ArgumentParser::isIntervalArgumentPresent()
+const char *ArgumentParser::getTimeArgument()
 {
-    const char *flags[] = {"-i", "--interval", ""};
-    return isArgumentPresent(flags);
+    return time;
+}
+
+void ArgumentParser::setOutputArgument()
+{
+    setArgument(outputFlags, outputFile);
+}
+
+const char *ArgumentParser::getOutputArgument()
+{
+    return outputFile;
+}
+
+void ArgumentParser::setIntervalArgument()
+{   
+    const char *intervalStr;
+    setArgument(intervalFlags, intervalStr);
+    interval = extractIntervalValues(intervalStr);
 }
 
 std::pair<unsigned int, unsigned int> ArgumentParser::getIntervalArgument()
 {
-    std::string argument = getArgument(intervalFlag);
-    if (argument.size() == 0)
-    {
-        return {0, 0};
-    }
-    return extractIntervalValues(argument);
+    return interval;
 }
 
 void ArgumentParser::printHelp()
