@@ -9,6 +9,7 @@ void Config::printConfig()
     std::cout << "CONFIG: "
               << "\n";
     std::cout << "    Algorithm  : " << algorithm << "\n";
+    std::cout << "    Mode       : " << mode << "\n";
     std::cout << "    Interval   : "
               << "[" << interval.first << "," << interval.second << "]"
               << "\n";
@@ -30,7 +31,7 @@ void Config::setAlgorithm(const char *algorithm)
 void Config::setMode(const char *mode)
 {
     std::string modeStr = mode;
-    this->mode = utils::mapString(modeStr, timeFormats);
+    this->mode = utils::mapString(modeStr, modes);
 }
 
 std::string &Config::getMode()

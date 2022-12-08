@@ -36,9 +36,8 @@ private:
         {"s", "seconds"},
     };
     std::map<std::string, std::string> modes = {
-        {"ms", "milliseconds"},
-        {"ns", "nanoseconds"},
-        {"s", "seconds"},
+        {"p", "parallel"},
+        {"s", "single"},
     };
 
     std::string timeFormat = "milliseconds";
