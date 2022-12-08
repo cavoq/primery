@@ -12,7 +12,7 @@ class Timer
 
 public:
     Timer();
-    Result time(std::vector<unsigned int> (*function)(unsigned int, unsigned int), Config &config);
+    Result time(std::vector<unsigned int> &(*function)(unsigned int, unsigned int, std::string &mode), Config &config);
 
 private:
     double getTime(double time, std::string &format);

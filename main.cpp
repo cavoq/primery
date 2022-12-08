@@ -19,10 +19,11 @@ void run(Config &config)
     std::string algorithm = config.getAlgorithm();
 
     if (algorithm == "trialDivision")
-        result = timer.time(primeGenerator.trailDivision, config);
+        result = timer.time(primeGenerator.trialDivision, config);
     if (algorithm == "sieveOfEratosthenes")
         result = timer.time(primeGenerator.sieveOfEratosthenes, config);
 
+    result.adjust();
     result.writeToFile(config.getOutputFile());
     output(result, config);
 }

@@ -10,6 +10,7 @@ class Result
 public:
     Result(std::vector<unsigned int> primes, double time);
     Result();
+    void adjust();
     void printResult();
     void writeToFile(std::string &fileName);
     

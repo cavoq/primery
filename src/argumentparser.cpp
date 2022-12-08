@@ -38,6 +38,13 @@ bool ArgumentParser::setConfig(Config &config)
             return false;
         config.setTimeFormat(timeFormatArgument);
     }
+    if (isArgumentPresent(modeFlags))
+    {
+        const char *modeArgument = getArgument(modeFlags);
+        if (modeArgument == "")
+            return false;
+        config.setMode(modeArgument);
+    }
     if (argv[argc - 1] == "")
         return false;
     config.setAlgorithm(argv[argc - 1]);
@@ -123,9 +130,11 @@ void ArgumentParser::printHelp()
     std::cout << "SUPPORTED ALGORITHMS:" << std::endl;
     std::cout << "    { trialDivision, td }" << std::endl;
     std::cout << "    { sieveOfEratosthenes, soe}" << std::endl;
+    std::cout << "    { sieveOfSundaram, sos}" << std::endl;
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "    -h, --help: Get help for the program" << std::endl;
-    std::cout << "    -o, --output: Specify an output file for the generated prime numbers" << std::endl;
-    std::cout << "    -t, --time: Specify time format [ns, ms, s]" << std::endl;
-    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end]" << std::endl;
+    std::cout << "    -o, --output: Specify an output file for the generated prime numbers (default is primes.txt)" << std::endl;
+    std::cout << "    -m, --mode: Specify an output file for the generated prime numbers [single, parallel] (default is single)" << std::endl;
+    std::cout << "    -t, --time: Specify time format [ns, ms, s] (default is milliseconds)" << std::endl;
+    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2, 1000]" << std::endl;
 }

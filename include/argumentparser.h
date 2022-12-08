@@ -31,6 +31,7 @@ private:
     const char *outputFlags[3] = {"-o", "--output", ""};
     const char *helpFlags[3] = {"-h", "--help", ""};
     const char *timeFormatFlags[3] = {"-t", "--time", ""};
+    const char *modeFlags[3] = {"-m", "--mode", ""};
 };
 
 #endif // ARGUMENTPARSER_H

@@ -1,5 +1,7 @@
 #include "../include/config.h"
+#include "../include/utils.h"
 #include <cstring>
+#include <map>
 
 Config::Config() {}
 
@@ -21,11 +23,26 @@ std::string &Config::getAlgorithm()
 }
 
 void Config::setAlgorithm(const char *algorithm)
-{   
-    if (strcmp(algorithm, "td") == 0)
-        return;
-    if (strcmp(algorithm, "soe") == 0)
-        this->algorithm = "sieveOfEratosthenes";
+{
+    std::string algorithmStr = algorithm;
+
+    std::map<std::string, std::string> algorithmMap = {
+        {"td", "trialDivision"},
+        {"soe", "sieveOfEratosthenes"},
+        {"sos", "sieveOfSundaram"},
+    };
+
+    this->algorithm = utils::mapString(algorithmStr, algorithmMap, "trialDivision");
+}
+
+void Config::setMode(const char *mode)
+{
+    this->mode = mode;
+}
+
+std::string &Config::getMode()
+{
+    return mode;
 }
 
 std::pair<unsigned int, unsigned int> &Config::getInterval()
@@ -44,13 +61,16 @@ std::string &Config::getTimeFormat()
 }
 
 void Config::setTimeFormat(const char *timeFormat)
-{   
-    if (strcmp(timeFormat, "ms") == 0)
-        return;
-    if (strcmp(timeFormat, "ns") == 0)
-        this->timeFormat = "nanoseconds";
-    if (strcmp(timeFormat, "s") == 0)
-        this->timeFormat = "seconds";
+{
+    std::string timeFormatStr = timeFormat;
+
+    std::map<std::string, std::string> timeFormatMap = {
+        {"ms", "milliseconds"},
+        {"ns", "nanoseconds"},
+        {"s", "seconds"},
+    };
+
+    this->timeFormat = utils::mapString(timeFormatStr, timeFormatMap, "milliseconds");
 }
 
 std::string &Config::getOutputFile()

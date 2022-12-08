@@ -14,6 +14,16 @@ void Result::printResult()
 
 Result::Result(std::vector<unsigned int> primes, double time) : primes(primes), time(time) {}
 
+void Result::adjust()
+{
+    for (unsigned int i = 0; i < primes.size(); ++i)
+    {
+        if (primes[i] > 2)
+            return;
+        primes.erase(primes.begin() + i);
+    }
+}
+
 void Result::writeToFile(std::string &fileName)
 {
     std::ofstream outputFile(fileName);
