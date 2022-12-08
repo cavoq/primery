@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include <iostream>
+#include <map>
 
 class Config
 {
@@ -22,7 +23,24 @@ public:
     void setAlgorithm(const char *algorithm);
 
 private:
-    std::pair<unsigned int, unsigned int> interval = {0, 1000};
+    std::pair<unsigned int, unsigned int> interval = {2, 1000};
+
+    std::map<std::string, std::string> algorithms = {
+        {"td", "trialDivision"},
+        {"soe", "sieveOfEratosthenes"},
+        {"sos", "sieveOfSundaram"},
+    };
+    std::map<std::string, std::string> timeFormats = {
+        {"ms", "milliseconds"},
+        {"ns", "nanoseconds"},
+        {"s", "seconds"},
+    };
+    std::map<std::string, std::string> modes = {
+        {"ms", "milliseconds"},
+        {"ns", "nanoseconds"},
+        {"s", "seconds"},
+    };
+
     std::string timeFormat = "milliseconds";
     std::string algorithm = "trialDivision";
     std::string outputFile = "primes.txt";

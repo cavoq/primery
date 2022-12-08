@@ -1,7 +1,6 @@
 #include "../include/config.h"
 #include "../include/utils.h"
 #include <cstring>
-#include <map>
 
 Config::Config() {}
 
@@ -25,19 +24,13 @@ std::string &Config::getAlgorithm()
 void Config::setAlgorithm(const char *algorithm)
 {
     std::string algorithmStr = algorithm;
-
-    std::map<std::string, std::string> algorithmMap = {
-        {"td", "trialDivision"},
-        {"soe", "sieveOfEratosthenes"},
-        {"sos", "sieveOfSundaram"},
-    };
-
-    this->algorithm = utils::mapString(algorithmStr, algorithmMap, "trialDivision");
+    this->algorithm = utils::mapString(algorithmStr, algorithms);
 }
 
 void Config::setMode(const char *mode)
 {
-    this->mode = mode;
+    std::string modeStr = mode;
+    this->mode = utils::mapString(modeStr, timeFormats);
 }
 
 std::string &Config::getMode()
@@ -63,14 +56,7 @@ std::string &Config::getTimeFormat()
 void Config::setTimeFormat(const char *timeFormat)
 {
     std::string timeFormatStr = timeFormat;
-
-    std::map<std::string, std::string> timeFormatMap = {
-        {"ms", "milliseconds"},
-        {"ns", "nanoseconds"},
-        {"s", "seconds"},
-    };
-
-    this->timeFormat = utils::mapString(timeFormatStr, timeFormatMap, "milliseconds");
+    this->timeFormat = utils::mapString(timeFormatStr, timeFormats);
 }
 
 std::string &Config::getOutputFile()

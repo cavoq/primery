@@ -13,7 +13,7 @@ std::vector<unsigned int> utils::generateArray(unsigned int start, unsigned int 
     return array;
 }
 
-std::string utils::mapString(const std::string &input, const std::map<std::string, std::string> &map, const std::string &defaultValue)
+std::string utils::mapString(const std::string &input, const std::map<std::string, std::string> &map)
 {
     if (map.count(input) > 0)
     {
@@ -21,7 +21,7 @@ std::string utils::mapString(const std::string &input, const std::map<std::strin
     }
     else
     {
-        return defaultValue;
+        return input;
     }
 }
 

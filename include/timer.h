@@ -18,7 +18,7 @@ private:
     double getTime(double time, std::string &format);
 
 private:
-    std::chrono::steady_clock::time_point startTime;
+    std::chrono::high_resolution_clock::time_point startTime;
 };
 
 #endif // TIMER_H
