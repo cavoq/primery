@@ -10,7 +10,7 @@ It also measures the time each algorithm needs to generate the prime numbers.
 | Algorithm | Complexity |
 | :---:   | :---: |
 | Trial Division | O(n^2) |
-| Sieve of Eratosthenes | O(n*sqrt(n)) |
+| Sieve of Eratosthenes | O(n*log(log(n))) |
 
 
 ## **Makefile**
