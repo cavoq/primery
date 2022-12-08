@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include "config.h"
+#include "argumentvalidator.h"
 
 class ArgumentParser
 {
@@ -24,6 +25,7 @@ private:
     const char *getPresentFlag(const char **flags);
 
 private:
+    ArgumentValidator argumentValidator;
     int argc;
     char **argv;
 

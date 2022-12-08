@@ -9,6 +9,7 @@ namespace utils
 {
     std::vector<unsigned int> generateArray(unsigned int start, unsigned int end);
     std::string mapString(const std::string &input, const std::map<std::string, std::string> &map, const std::string &defaultValue);
+    std::vector<std::string> split(const std::string &str, char delim);
 }
 
 #endif // UTILS_H

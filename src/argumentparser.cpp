@@ -1,4 +1,5 @@
 #include "../include/argumentparser.h"
+#include "../include/utils.h"
 
 ArgumentParser::ArgumentParser() {}
 
@@ -20,33 +21,38 @@ bool ArgumentParser::setConfig(Config &config)
     if (isArgumentPresent(intervalFlags))
     {
         std::string intervalArgument = getArgument(intervalFlags);
-        if (intervalArgument == "")
+        if (!argumentValidator.validateInterval(intervalArgument))
             return false;
+
         config.setInterval(extractIntervalValues(intervalArgument));
     }
     if (isArgumentPresent(outputFlags))
     {
         const char *outputArgument = getArgument(outputFlags);
-        if (outputArgument == "")
+        if (!argumentValidator.validateOutputFile(outputArgument))
             return false;
+
         config.setOutputFile(outputArgument);
     }
     if (isArgumentPresent(timeFormatFlags))
     {
         const char *timeFormatArgument = getArgument(timeFormatFlags);
-        if (timeFormatArgument == "")
+        if (!argumentValidator.validateTimeFormat(timeFormatArgument))
             return false;
+
         config.setTimeFormat(timeFormatArgument);
     }
     if (isArgumentPresent(modeFlags))
     {
         const char *modeArgument = getArgument(modeFlags);
-        if (modeArgument == "")
+        if (!argumentValidator.validateMode(modeArgument))
             return false;
+
         config.setMode(modeArgument);
     }
-    if (argv[argc - 1] == "")
+    if (!argumentValidator.validateAlgorithm(argv[argc - 1]))
         return false;
+
     config.setAlgorithm(argv[argc - 1]);
 
     return true;
@@ -107,13 +113,9 @@ const char *ArgumentParser::getArgument(const char *flag)
 
 std::pair<unsigned int, unsigned int> ArgumentParser::extractIntervalValues(std::string &interval)
 {
-    size_t startPos = interval.find_first_of('[') + 1;
-    size_t endPos = interval.find_first_of(']');
-    size_t seperatorPos = interval.find_first_of(',');
-    std::string startStr = interval.substr(startPos, seperatorPos - startPos);
-    std::string endStr = interval.substr(seperatorPos + 1, endPos - 1 - seperatorPos);
-    unsigned int start = std::stoul(startStr);
-    unsigned int end = std::stoul(endStr);
+    std::vector<std::string> numbers = utils::split(interval.substr(1, interval.size() - 2), ',');
+    unsigned int start = std::stoul(numbers[0]);
+    unsigned int end = std::stoul(numbers[1]);
     return {start, end};
 }
 
@@ -128,13 +130,17 @@ void ArgumentParser::printHelp()
               << "\n"
               << std::endl;
     std::cout << "SUPPORTED ALGORITHMS:" << std::endl;
-    std::cout << "    { trialDivision, td }" << std::endl;
-    std::cout << "    { sieveOfEratosthenes, soe}" << std::endl;
-    std::cout << "    { sieveOfSundaram, sos}" << std::endl;
+    std::cout << "    { td  | trialDivision }" << std::endl;
+    std::cout << "    { soe | sieveOfEratosthenes }" << std::endl;
+    std::cout << "    { sos | sieveOfSundaram }"
+              << "\n"
+              << std::endl;
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "    -h, --help: Get help for the program" << std::endl;
     std::cout << "    -o, --output: Specify an output file for the generated prime numbers (default is primes.txt)" << std::endl;
-    std::cout << "    -m, --mode: Specify an output file for the generated prime numbers [single, parallel] (default is single)" << std::endl;
-    std::cout << "    -t, --time: Specify time format [ns, ms, s] (default is milliseconds)" << std::endl;
-    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2, 1000]" << std::endl;
+    std::cout << "    -m, --mode: Specify an output file for the generated prime numbers [s| single, p | parallel] (default is single)" << std::endl;
+    std::cout << "    -t, --time: Specify time format [ns | nanoseconds, ms | milliseconds, s | seconds] (default is milliseconds)" << std::endl;
+    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2,1000]"
+              << "\n"
+              << std::endl;
 }
