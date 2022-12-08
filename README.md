@@ -11,6 +11,7 @@ It also measures the time each algorithm needs to generate the prime numbers.
 | :---:   | :---: |
 | Trial Division | O(n*sqrt(n)) |
 | Sieve of Eratosthenes | O(n*log(log(n))) |
+| Sieve of Sundram | O(n²) |
 
 
 ## **Makefile**

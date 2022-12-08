@@ -8,6 +8,8 @@ SingleThreadedPrimeGenerator::SingleThreadedPrimeGenerator() {}
 
 std::vector<unsigned int> &SingleThreadedPrimeGenerator::trialDivision(unsigned int start, unsigned int end)
 {
+    primes.clear();
+
     if (start == 2)
         primes.push_back(2);
 
@@ -35,6 +37,8 @@ std::vector<unsigned int> &SingleThreadedPrimeGenerator::trialDivision(unsigned 
 
 std::vector<unsigned int> &SingleThreadedPrimeGenerator::sieveOfEratosthenes(unsigned int start, unsigned int end)
 {
+    primes.clear();
+
     bool *prime = new bool[end + 1];
     memset(prime, 1, sizeof(bool) * (end + 1));
 
@@ -54,6 +58,40 @@ std::vector<unsigned int> &SingleThreadedPrimeGenerator::sieveOfEratosthenes(uns
         }
 
     delete[] prime;
+
+    return primes;
+}
+
+std::vector<unsigned int> &SingleThreadedPrimeGenerator::sieveOfSundaram(unsigned int start, unsigned int end)
+{
+    primes.clear();
+
+    unsigned int max = (end - start) / 2;
+
+    bool *eliminated = new bool[max + 1];
+    memset(eliminated, 0, sizeof(bool) * (max + 1));
+
+    for (unsigned int i = 1; i <= max; ++i)
+    {
+        for (unsigned int j = i; (i + j + 2 * i * j) <= max; ++j)
+        {
+            eliminated[i + j + 2 * i * j] = true;
+        }
+    }
+
+    for (unsigned int i = 1; i <= max; ++i)
+    {
+        if (!eliminated[i])
+        {
+            unsigned int prime = 2 * i + 1;
+            if (prime >= start && prime <= end)
+            {
+                primes.push_back(prime);
+            }
+        }
+    }
+
+    delete[] eliminated;
 
     return primes;
 }

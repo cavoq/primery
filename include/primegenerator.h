@@ -9,9 +9,9 @@ class PrimeGenerator
 public:
     virtual std::vector<unsigned int> &trialDivision(unsigned int start, unsigned int end) = 0;
     virtual std::vector<unsigned int> &sieveOfEratosthenes(unsigned int start, unsigned int end) = 0;
-    //virtual std::vector<unsigned int> &sieveOfSundaram(unsigned int start, unsigned int end) = 0;
+    virtual std::vector<unsigned int> &sieveOfSundaram(unsigned int start, unsigned int end) = 0;
 
-public:
+protected:
     inline static std::vector<unsigned int> primes;
 };
 
