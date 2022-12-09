@@ -35,6 +35,8 @@ void run(Config &config)
         result = timer.time(&PrimeGenerator::sieveOfEratosthenes, primeGenerator, config);
     if (algorithm == "sieveOfSundaram")
         result = timer.time(&PrimeGenerator::sieveOfSundaram, primeGenerator, config);
+    if (algorithm == "sieveOfAtkin")
+        result = timer.time(&PrimeGenerator::sieveOfAtkin, primeGenerator, config);
 
     delete primeGenerator;
 

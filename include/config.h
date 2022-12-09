@@ -29,6 +29,7 @@ private:
         {"td", "trialDivision"},
         {"soe", "sieveOfEratosthenes"},
         {"sos", "sieveOfSundaram"},
+        {"soa", "sieveOfAtkin"}
     };
     std::map<std::string, std::string> timeFormats = {
         {"ms", "milliseconds"},

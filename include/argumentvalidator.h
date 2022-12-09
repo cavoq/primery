@@ -20,9 +20,15 @@ private:
     bool validate(const char **validArguments, const char *argument);
 
 private:
-    const char *validAlgorithms[7] = {"td", "trialDivision", "soe", "sieveOfEratosthenes", "sos", "sieveOfSundaram", ""};
-    const char *validTimeFormats[7] = {"ns", "nanoseconds", "ms", "milliseconds", "s", "seconds", ""};
-    const char *validModes[5] = {"-single", "s", "p", "parallel", ""};
+    const char *validAlgorithms[9] = {"td", "trialDivision",
+                                      "soe", "sieveOfEratosthenes",
+                                      "sos", "sieveOfSundaram",
+                                      "soa", "sieveOfAtkin", ""};
+    const char *validTimeFormats[7] = {"ns", "nanoseconds",
+                                       "ms", "milliseconds",
+                                       "s", "seconds", ""};
+    const char *validModes[5] = {"s", "single",
+                                 "p", "parallel", ""};
 };
 
 #endif // ARGUMENTVALIDATOR_H

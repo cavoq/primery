@@ -79,6 +79,9 @@ std::vector<unsigned int> &SingleThreadedPrimeGenerator::sieveOfSundaram(unsigne
         }
     }
 
+    if (start == 2)
+        primes.push_back(2);
+
     for (unsigned int i = 1; i <= max; ++i)
     {
         if (!eliminated[i])
@@ -92,6 +95,52 @@ std::vector<unsigned int> &SingleThreadedPrimeGenerator::sieveOfSundaram(unsigne
     }
 
     delete[] eliminated;
+
+    return primes;
+}
+
+std::vector<unsigned int> &SingleThreadedPrimeGenerator::sieveOfAtkin(unsigned int start, unsigned int end)
+{
+    primes.clear();
+
+    bool *sieve = new bool[end + 1];
+    memset(sieve, 0, sizeof(bool) * (end + 1));
+
+    for (int x = 1; x * x <= end; x++)
+    {
+        for (int y = 1; y * y <= end; y++)
+        {
+
+            int n = (4 * x * x) + (y * y);
+            if (n <= end && (n % 12 == 1 || n % 12 == 5))
+                sieve[n] = !sieve[n];
+
+            n = (3 * x * x) + (y * y);
+            if (n <= end && n % 12 == 7)
+                sieve[n] = !sieve[n];
+
+            n = (3 * x * x) - (y * y);
+            if (x > y && n <= end && n % 12 == 11)
+                sieve[n] = !sieve[n];
+        }
+    }
+
+    for (int r = 5; r * r <= end; r++)
+    {
+        if (sieve[r])
+        {
+            for (int i = r * r; i <= end; i += r * r)
+                sieve[i] = false;
+        }
+    }
+
+    for (unsigned int i = start; i <= end; ++i)
+    {
+        if (sieve[i])
+            primes.push_back(i);
+    }
+
+    delete[] sieve;
 
     return primes;
 }

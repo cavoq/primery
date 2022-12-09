@@ -129,10 +129,14 @@ void ArgumentParser::printHelp()
     std::cout << "Usage: ./prime-generator [Options] {algorithm}"
               << "\n"
               << std::endl;
+    std::cout << "EXAMPLE: ./prime-generator -i [234,100000] -t ms -m p sieveOfEratosthenes"
+              << "\n"
+              << std::endl;
     std::cout << "SUPPORTED ALGORITHMS:" << std::endl;
     std::cout << "    { td  | trialDivision }" << std::endl;
     std::cout << "    { soe | sieveOfEratosthenes }" << std::endl;
-    std::cout << "    { sos | sieveOfSundaram }"
+    std::cout << "    { sos | sieveOfSundaram }" << std::endl;
+    std::cout << "    { soa | sieveOfAtkin }"
               << "\n"
               << std::endl;
     std::cout << "OPTIONS:" << std::endl;

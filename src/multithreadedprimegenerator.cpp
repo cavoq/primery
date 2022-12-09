@@ -61,8 +61,8 @@ std::vector<unsigned int> &MultiThreadedPrimeGenerator::sieveOfEratosthenes(unsi
         }
     }
 
-    for (auto &f : futures)
-        f.wait();
+    for (auto &future : futures)
+        future.wait();
 
     for (unsigned int p = start; p <= end; p++)
         if (prime[p])
@@ -81,8 +81,8 @@ std::vector<unsigned int> &MultiThreadedPrimeGenerator::sieveOfSundaram(unsigned
 
     unsigned int max = (end - start) / 2;
 
-    std::atomic<bool> *eliminated = new std::atomic<bool>[max + 1];
-    memset(eliminated, 0, sizeof(std::atomic<bool>) * (max + 1));
+    bool *eliminated = new bool[max + 1];
+    memset(eliminated, 0, sizeof(bool) * (max + 1));
 
     std::vector<std::future<void>> futures;
 
@@ -93,19 +93,20 @@ std::vector<unsigned int> &MultiThreadedPrimeGenerator::sieveOfSundaram(unsigned
                                      {
                                          for (unsigned int j = i; (i + j + 2 * i * j) <= max; ++j)
                                          {
-                                             eliminated[i + j + 2 * i * j].store(true, std::memory_order_relaxed);
+                                             eliminated[i + j + 2 * i * j] = true;
                                          }
                                      }));
     }
 
     for (auto &future : futures)
-    {
         future.wait();
-    }
+
+    if (start == 2)
+        primes.push_back(2);
 
     for (unsigned int i = 1; i <= max; ++i)
     {
-        if (!eliminated[i].load(std::memory_order_relaxed))
+        if (!eliminated[i])
         {
             unsigned int prime = 2 * i + 1;
             if (prime >= start && prime <= end)
@@ -116,6 +117,60 @@ std::vector<unsigned int> &MultiThreadedPrimeGenerator::sieveOfSundaram(unsigned
     }
 
     delete[] eliminated;
+
+    return primes;
+}
+
+std::vector<unsigned int> &MultiThreadedPrimeGenerator::sieveOfAtkin(unsigned int start, unsigned int end)
+{
+    primes.clear();
+
+    bool *sieve = new bool[end + 1];
+    memset(sieve, 0, sizeof(bool) * (end + 1));
+
+    std::vector<std::future<void>> futures;
+
+    for (int x = 1; x * x <= end; x++)
+    {
+        futures.push_back(std::async(std::launch::async,
+                                     [x, end, &sieve]()
+                                     {
+                                         for (int y = 1; y * y <= end; y++)
+                                         {
+                                             int n = (4 * x * x) + (y * y);
+                                             if (n <= end && (n % 12 == 1 || n % 12 == 5))
+                                                 sieve[n] = !sieve[n];
+
+                                             n = (3 * x * x) + (y * y);
+                                             if (n <= end && n % 12 == 7)
+                                                 sieve[n] = !sieve[n];
+
+                                             n = (3 * x * x) - (y * y);
+                                             if (x > y && n <= end && n % 12 == 11)
+                                                 sieve[n] = !sieve[n];
+                                         }
+                                     }));
+    }
+
+    for (auto &future : futures)
+        future.wait();
+
+    for (int r = 5; r * r <= end; r++)
+    {
+        if (sieve[r])
+        {
+            for (int i = r * r; i <= end; i += r * r)
+                sieve[i] = false;
+        }
+    }
+
+    for (unsigned int i = start; i <= end; ++i)
+    {
+        if (sieve[i])
+            primes.push_back(i);
+    }
+
+    delete[] sieve;
 
     return primes;
 }

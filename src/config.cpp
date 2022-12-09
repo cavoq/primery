@@ -46,6 +46,8 @@ std::pair<unsigned int, unsigned int> &Config::getInterval()
 
 void Config::setInterval(std::pair<unsigned int, unsigned int> interval)
 {
+    if (interval.first < 2)
+        interval.first = 2;
     this->interval = interval;
 }
 

@@ -18,7 +18,7 @@ void Result::adjust()
 {
     for (unsigned int i = 0; i < primes.size(); ++i)
     {
-        if (primes[i] > 2)
+        if (primes[i] >= 2)
             return;
         primes.erase(primes.begin() + i);
     }
