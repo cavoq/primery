@@ -12,7 +12,8 @@ It also measures the time each algorithm needs to generate the prime numbers.
 | Trial Division | O(n*sqrt(n)) |
 | Sieve of Eratosthenes | O(n*log(log(n))) |
 | Sieve of Sundaram | O(n*log(n)) |
-| Sieve of Atkin | O(n)) 
+| Sieve of Atkin | O(n)) |
+
 
 
 ## **Time comparisons** ##
@@ -24,7 +25,7 @@ It also measures the time each algorithm needs to generate the prime numbers.
 
 **Single threaded:**
 
-<table>
+<table style="border: 1px solid black; border-collapse: collapse;">
   <tr>
     <th>n</th>
     <th>Sieve of Eratosthenes</th>
@@ -67,7 +68,7 @@ It also measures the time each algorithm needs to generate the prime numbers.
 
 **Mulit threaded:**
 
-<table>
+<table style="border: 1px solid black; border-collapse: collapse;">
   <tr>
     <th>n</th>
     <th>Sieve of Eratosthenes</th>
@@ -111,17 +112,11 @@ It also measures the time each algorithm needs to generate the prime numbers.
 
 Based on the data in the tables, it appears that the Sieve of Atkin is the fastest algorithm for generating prime numbers in both single-threaded and multi-threaded environments. In single-threaded mode, it is faster than the other two algorithms for all values of n tested. In multi-threaded mode, it is still the fastest algorithm for n up to 10⁸, and is competitive with the Sieve of Eratosthenes for n = 10⁹. The Sieve of Sundaram is slower than the other two algorithms in both single-threaded and multi-threaded mode. For large inputs, multithreading gives a great perfomance boost for generating prime numbers.
 
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-</style>
-
 ## **Makefile**
 
 ![Screenshot from 2022-12-07 23-44-48](https://user-images.githubusercontent.com/61215846/206315507-531a842c-a1c7-41e0-82f3-41566bfabe05.png)
 
 ## **Usage**
 
-![Screenshot from 2022-12-07 23-45-33](https://user-images.githubusercontent.com/61215846/206315512-5a1f4483-2b58-4d56-bd71-57a27348b0fb.png)
+![Screenshot from 2022-12-09 16-17-27](https://user-images.githubusercontent.com/61215846/206734128-0327fae5-388d-4348-b831-009d38c875d6.png)
+
