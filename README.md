@@ -1,6 +1,7 @@
 # **Primery**
-Prime generator is used to generate prime numbers in a specified range [x, y].
+Primery is used to generate prime numbers in a specified range [x, y].
 It also measures the time each algorithm needs to generate the prime numbers.
+It`s planned to expand the usage for checking primes as well and perfoming other operations.
 
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 ![version](https://img.shields.io/badge/version-1.1-lightgrey.svg)
