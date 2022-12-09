@@ -144,7 +144,7 @@ void ArgumentParser::printHelp()
     std::cout << "    -o, --output: Specify an output file for the generated prime numbers (default is primes.txt)" << std::endl;
     std::cout << "    -m, --mode: Specify an output file for the generated prime numbers [s| single, p | parallel] (default is single)" << std::endl;
     std::cout << "    -t, --time: Specify time format [ns | nanoseconds, ms | milliseconds, s | seconds] (default is milliseconds)" << std::endl;
-    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2,1000]"
+    std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2,1000])"
               << "\n"
               << std::endl;
 }
