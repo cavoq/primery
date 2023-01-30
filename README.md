@@ -118,6 +118,5 @@ Based on the data in the tables, it appears that the Sieve of Atkin is the faste
 ![Screenshot from 2022-12-07 23-44-48](https://user-images.githubusercontent.com/61215846/206315507-531a842c-a1c7-41e0-82f3-41566bfabe05.png)
 
 ## **Usage**
-
-![Screenshot from 2022-12-09 16-17-27](https://user-images.githubusercontent.com/61215846/206734128-0327fae5-388d-4348-b831-009d38c875d6.png)
+![Screenshot from 2023-01-30 01-05-19](https://user-images.githubusercontent.com/61215846/215363849-c7fc0f08-feaa-416c-92c4-d883a7c052d0.png)
 
