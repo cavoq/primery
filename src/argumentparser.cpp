@@ -126,10 +126,10 @@ bool ArgumentParser::isHelpArgumentPresent()
 
 void ArgumentParser::printHelp()
 {
-    std::cout << "Usage: ./prime-generator [Options] {algorithm}"
+    std::cout << "USAGE: primery [Options] {algorithm}"
               << "\n"
               << std::endl;
-    std::cout << "EXAMPLE: ./prime-generator -i [234,100000] -t ms -m p sieveOfEratosthenes"
+    std::cout << "EXAMPLE: primery -i [234,100000] -t ms -m p sieveOfEratosthenes"
               << "\n"
               << std::endl;
     std::cout << "SUPPORTED ALGORITHMS:" << std::endl;
@@ -142,7 +142,7 @@ void ArgumentParser::printHelp()
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "    -h, --help: Get help for the program" << std::endl;
     std::cout << "    -o, --output: Specify an output file for the generated prime numbers (default is primes.txt)" << std::endl;
-    std::cout << "    -m, --mode: Specify a mode for generating prime numbers [s| single, p | parallel] (default is single)" << std::endl;
+    std::cout << "    -m, --mode: Specify a mode for generating prime numbers [s | single, p | parallel] (default is single)" << std::endl;
     std::cout << "    -t, --time: Specify time format [ns | nanoseconds, ms | milliseconds, s | seconds] (default is milliseconds)" << std::endl;
     std::cout << "    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2,1000])"
               << "\n"
