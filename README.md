@@ -115,8 +115,34 @@ Based on the data in the tables, it appears that the Sieve of Atkin is the faste
 
 ## **Makefile**
 
-![image](https://user-images.githubusercontent.com/61215846/221427448-b5d82de5-a038-4ceb-84d0-7a7d6e7ae833.png)
+```
+#### primery v1.2 ####
+
+Available targets:
+
+build                          Build software
+clean                          Remove program and output files
+help                           Get help for Makefile
+install                        Install software globally
+uninstall                      Uninstall software
+```
 
 ## **Usage**
-![image](https://user-images.githubusercontent.com/61215846/221427548-429321ad-adcc-4b6b-b74d-a3f1ec1f238f.png)
+```
+USAGE: primery [Options] {algorithm}
 
+EXAMPLE: primery -i [234,100000] -t ms -m p sieveOfEratosthenes
+
+SUPPORTED ALGORITHMS:
+    { td  | trialDivision }
+    { soe | sieveOfEratosthenes }
+    { sos | sieveOfSundaram }
+    { soa | sieveOfAtkin }
+
+OPTIONS:
+    -h, --help: Get help for the program
+    -o, --output: Specify an output file for the generated prime numbers (default is primes.txt)
+    -m, --mode: Specify a mode for generating prime numbers [s | single, p | parallel] (default is single)
+    -t, --time: Specify time format [ns | nanoseconds, ms | milliseconds, s | seconds] (default is milliseconds)
+    -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2,1000])
+```
