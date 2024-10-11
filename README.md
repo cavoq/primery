@@ -4,7 +4,7 @@ It also measures the time each algorithm needs to generate the prime numbers.
 It`s planned to expand the usage for checking primes as well and perfoming other operations.
 
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
-![version](https://img.shields.io/badge/version-1.2-lightgrey.svg)
+![version](https://img.shields.io/badge/version-1.3-lightgrey.svg)
 
 ## **Supported algorithms**
 
@@ -14,8 +14,6 @@ It`s planned to expand the usage for checking primes as well and perfoming other
 | Sieve of Eratosthenes | O(n*log(log(n))) |
 | Sieve of Sundaram | O(n*log(n)) |
 | Sieve of Atkin | O(n)) |
-
-
 
 ## **Time comparisons** ##
 
@@ -116,7 +114,7 @@ Based on the data in the tables, it appears that the Sieve of Atkin is the faste
 ## **Makefile**
 
 ```
-#### primery v1.2 ####
+#### primery v1.3 ####
 
 Available targets:
 
@@ -145,4 +143,16 @@ OPTIONS:
     -m, --mode: Specify a mode for generating prime numbers [s | single, p | parallel] (default is single)
     -t, --time: Specify time format [ns | nanoseconds, ms | milliseconds, s | seconds] (default is milliseconds)
     -i, --interval: Specify interval to generate prime numbers in format [start,end] (default is [2,1000])
+```
+
+### **Docker**
+
+To build the docker image, run the following command:
+```
+docker build -t primery .
+```
+
+To run the docker image, run the following command:
+```
+docker run --rm -v $(pwd)/.:/primery primery -i [234,100000] -t ms -m p sieveOfEratosthenes
 ```
