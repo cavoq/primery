@@ -1,4 +1,6 @@
 /.vscode
 /a.out
-primery
-*.txt
+/build/
+/primery
+compile_commands.json
+primes.txt
