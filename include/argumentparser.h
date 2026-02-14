@@ -18,6 +18,8 @@ private:
     bool isHelpArgumentPresent();
     bool setConfig(Config &config);
     std::pair<unsigned int, unsigned int> extractIntervalValues(std::string &interval);
+    const char *findAlgorithmArgument();
+    bool isFlag(const char *token);
 
     bool isArgumentPresent(const char **flags);
     const char *getArgument(const char *flag);

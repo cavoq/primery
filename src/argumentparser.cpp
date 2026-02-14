@@ -20,15 +20,22 @@ bool ArgumentParser::setConfig(Config &config)
 {
     if (isArgumentPresent(intervalFlags))
     {
-        std::string intervalArgument = getArgument(intervalFlags);
-        if (!argumentValidator.validateInterval(intervalArgument))
+        const char *intervalArgument = getArgument(intervalFlags);
+        if (intervalArgument == NULL || strlen(intervalArgument) == 0)
             return false;
 
-        config.setInterval(extractIntervalValues(intervalArgument));
+        std::string intervalArgumentStr = intervalArgument;
+        if (!argumentValidator.validateInterval(intervalArgumentStr))
+            return false;
+
+        config.setInterval(extractIntervalValues(intervalArgumentStr));
     }
     if (isArgumentPresent(outputFlags))
     {
         const char *outputArgument = getArgument(outputFlags);
+        if (outputArgument == NULL || strlen(outputArgument) == 0)
+            return false;
+
         if (!argumentValidator.validateOutputFile(outputArgument))
             return false;
 
@@ -37,6 +44,9 @@ bool ArgumentParser::setConfig(Config &config)
     if (isArgumentPresent(timeFormatFlags))
     {
         const char *timeFormatArgument = getArgument(timeFormatFlags);
+        if (timeFormatArgument == NULL || strlen(timeFormatArgument) == 0)
+            return false;
+
         if (!argumentValidator.validateTimeFormat(timeFormatArgument))
             return false;
 
@@ -45,15 +55,20 @@ bool ArgumentParser::setConfig(Config &config)
     if (isArgumentPresent(modeFlags))
     {
         const char *modeArgument = getArgument(modeFlags);
+        if (modeArgument == NULL || strlen(modeArgument) == 0)
+            return false;
+
         if (!argumentValidator.validateMode(modeArgument))
             return false;
 
         config.setMode(modeArgument);
     }
-    if (!argumentValidator.validateAlgorithm(argv[argc - 1]))
+
+    const char *algorithmArgument = findAlgorithmArgument();
+    if (algorithmArgument == NULL || !argumentValidator.validateAlgorithm(algorithmArgument))
         return false;
 
-    config.setAlgorithm(argv[argc - 1]);
+    config.setAlgorithm(algorithmArgument);
 
     return true;
 }
@@ -76,7 +91,12 @@ bool ArgumentParser::isArgumentPresent(const char **flags)
 const char *ArgumentParser::getArgument(const char **flags)
 {
     const char *flag = getPresentFlag(flags);
+    if (flag == NULL)
+        return NULL;
+
     const char *argument = getArgument(flag);
+    if (argument == NULL)
+        return NULL;
 
     if (strlen(argument) == 0)
         return "";
@@ -101,6 +121,9 @@ const char *ArgumentParser::getPresentFlag(const char **flags)
 
 const char *ArgumentParser::getArgument(const char *flag)
 {
+    if (flag == NULL)
+        return NULL;
+
     for (int i = 0; i < argc; i++)
     {
         if (strcmp(argv[i], flag) == 0 && i + 1 < argc)
@@ -108,6 +131,34 @@ const char *ArgumentParser::getArgument(const char *flag)
             return argv[i + 1];
         }
     }
+    return NULL;
+}
+
+bool ArgumentParser::isFlag(const char *token)
+{
+    return strcmp(token, "-i") == 0 || strcmp(token, "--interval") == 0 ||
+           strcmp(token, "-o") == 0 || strcmp(token, "--output") == 0 ||
+           strcmp(token, "-t") == 0 || strcmp(token, "--time") == 0 ||
+           strcmp(token, "-m") == 0 || strcmp(token, "--mode") == 0 ||
+           strcmp(token, "-h") == 0 || strcmp(token, "--help") == 0;
+}
+
+const char *ArgumentParser::findAlgorithmArgument()
+{
+    for (int i = 1; i < argc; ++i)
+    {
+        if (isFlag(argv[i]))
+        {
+            if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
+                continue;
+
+            ++i;
+            continue;
+        }
+
+        return argv[i];
+    }
+
     return NULL;
 }
 
