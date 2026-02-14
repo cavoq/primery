@@ -3,7 +3,7 @@
 > A fast prime number generator with multiple algorithms and parallel execution support.
 
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
-![version](https://img.shields.io/badge/version-1.3-lightgrey.svg)
+![version](https://img.shields.io/badge/version-1.4-lightgrey.svg)
 
 Primery generates prime numbers in a specified range `[x, y]` and benchmarks the performance of different algorithms. Supports both single-threaded and multi-threaded execution modes.
 
@@ -22,21 +22,21 @@ Primery generates prime numbers in a specified range `[x, y]` and benchmarks the
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/primery.git
+git clone https://github.com/cavoq/primery.git
 cd primery
 
 # Build
 make build
 
 # Run
-./build/primery soa -i [2,1000000]
+./build/primery soa -i '[2,1000000]'
 ```
 
 ### Install Globally
 
 ```bash
 sudo make install
-primery soa -i [2,1000000]
+primery soa -i '[2,1000000]'
 ```
 
 ### Using Docker
@@ -46,7 +46,7 @@ primery soa -i [2,1000000]
 docker build -t primery .
 
 # Run
-docker run --rm primery -i [2,100000] -m p soa
+docker run --rm primery soa -i '[2,100000]' -m p
 ```
 
 ## 📖 Usage
@@ -54,6 +54,8 @@ docker run --rm primery -i [2,100000] -m p soa
 ```
 primery [OPTIONS] <algorithm>
 ```
+
+`<algorithm>` can be placed before or after options.
 
 ### Options
 
@@ -69,13 +71,13 @@ primery [OPTIONS] <algorithm>
 
 ```bash
 # Generate primes from 2 to 1 million using Sieve of Atkin
-primery soa -i [2,1000000]
+primery soa -i '[2,1000000]'
 
 # Parallel execution with nanosecond timing
-primery -i [234,100000] -t ns -m p sieveOfEratosthenes
+primery sieveOfEratosthenes -i '[234,100000]' -t ns -m p
 
 # Save to custom file
-primery soe -i [2,10000] -o my_primes.txt
+primery soe -i '[2,10000]' -o my_primes.txt
 ```
 
 ## 🛠️ Build Commands
